@@ -32,7 +32,7 @@ export default class EcobankCardsController {
         
       
       return (JSON.parse(result).token)
-      }
+    }
 
       // by card
       async  cardPayment({request}:HttpContextContract) {
@@ -60,7 +60,7 @@ export default class EcobankCardsController {
               currency: currency,
               "locale": "en_AU",
               "orderInfo": "255s353",
-              "returnUrl": "https://570f-154-125-15-31.eu.ngrok.io"
+              "returnUrl": "https://16ee-154-125-15-31.eu.ngrok.io"
             },
             merchantDetails: {
               "accessCode": "79742570",
@@ -82,6 +82,38 @@ export default class EcobankCardsController {
         console.log(response)
        // Ws.io.emit('message',content) // notification du statut de la transaction
       }
+
+      // Account balance informations
+
+    async  AccountBalance({request}:HttpContextContract) {
+        const accessToken = await this.getToken();
+        const url = `${base}/corporateapi/merchant/accountbalance`;
+        const affiliateCode = request.input('affiliateCode')
+        const accountNo = request.input('accountNo')
+        const companyName = request.input('companyName')
+        const response = await rp(url, {
+          method: "post",
+          headers: {
+            "Accept": "application/json",
+            "Origin": "developer.ecobank.com",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify({
+            
+            "requestId": "14232436312",
+            "affiliateCode": affiliateCode,
+            "accountNo": accountNo,
+            "clientId": client_id,
+            "companyName": companyName,
+            "secureHash": "ab7fd06c906c0601cda2c5679b94474ef6968132500c61f80f7606f307ef6f47917cd650a01633d512d2a64d7e130cf640eb1164a7aeef637d5ee4f802f04005"
+          }),
+        });
+
+        return JSON.parse(response)
+       
+      }
+     
 
     
 }

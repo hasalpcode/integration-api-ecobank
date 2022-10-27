@@ -37,6 +37,11 @@ Route.group(()=>{
   Route.post("/capture/:orderID",'PaypalsController.capturePayment' )
   //Route.post("/test",'WebhooksController.webHook' )
   Route.post("/test",'EcobankCardsController.webHookResponse' )
+  // generer terminal pour le marchanant
+  Route.post("/qr_terminal",'EcobankQrsController.merchantQr' )
+
+  Route.post("/qr_payment",'EcobankQrsController.dynamicQrPayment' )
+  Route.post('/account_balance','EcobankCardsController.AccountBalance')
 
 }).prefix('/api')
   // extension_association
