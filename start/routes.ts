@@ -39,9 +39,16 @@ Route.group(()=>{
   Route.post("/test",'EcobankCardsController.webHookResponse' )
   // generer terminal pour le marchanant
   Route.post("/qr_terminal",'EcobankQrsController.merchantQr' )
-
+// qr payment
   Route.post("/qr_payment",'EcobankQrsController.dynamicQrPayment' )
+  // infos balance
   Route.post('/account_balance','EcobankCardsController.AccountBalance')
+
+  // obtenir les infos d'un compte
+  Route.post('/account_enquiry','EcobankQrsController.AccountEnquiry')
+
+  // obtenir les transactions d'un compte
+  Route.post('/account_statement','EcobankQrsController.AccountStatementGeneration')
 
 }).prefix('/api')
   // extension_association

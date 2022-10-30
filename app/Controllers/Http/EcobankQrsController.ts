@@ -1,7 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Env from '@ioc:Adonis/Core/Env'
 const rp = require('request-promise')
-const QRCode = require('qrcode')
+//const QRCode = require('qrcode')
 import Ws from '../../services/ws'
 
 Ws.boot()
@@ -77,7 +77,7 @@ export default class EcobankQrsController {
         return JSON.parse(response).response_content.terminalId
        
     }
-      // generer le qr code
+    // generer le qr code
 
     async  dynamicQrPayment({request}:HttpContextContract) {
     //const accessToken = await this.getToken();
@@ -115,16 +115,69 @@ export default class EcobankQrsController {
           "secure_hash": "7f137705f4caa39dd691e771403430dd23d27aa53cefcb97217927312e77847bca6b8764f487ce5d1f6520fd7227e4d4c470c5d1e7455822c8ee95b10a0e9855"
         }),
     });
-
-    //console.log(JSON.parse(response).response_content.dynamicQR)
-    // generation du qr code 
     return JSON.parse(response)
-    // const png =  QRCode.toString(qr_url,{type:'png'}, function (err, 
-    //     base64image) {
-    //      console.log(base64image)
-        
-    //     })
-    //   return  png
+
+    }
+
+    // Get account enquiry // obtenir une demande de compte
+
+    async  AccountEnquiry({request}:HttpContextContract) {
+      const accessToken = await this.getToken();
+      const url = `${base}/corporateapi/merchant/accountinquiry`;
+      const account = request.input('accountNo')
+      const id_client = request.input('clientId')
+      const response = await rp(url, {
+          method: "post",
+          headers: {
+          "Accept": "application/json",
+          "Origin": "developer.ecobank.com",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+          },
+          
+          body: JSON.stringify({
+            "requestId": "14232436312",
+            "affiliateCode": "EGH",
+            "accountNo": account,
+            "clientId": id_client,
+            
+            "secureHash": "2a58ca499561e941d9196999a1ed253161a47c98466d06ecaa02eb52a3b02261a03cbae9f5fdc0a3efe7b1f941764ff661cb1de24c8aa5029ecef6a1feb3efae" 
+          }),
+      });
+      return JSON.parse(response)
+  
+    }
+
+    // Get statement generation // obtenir les transations  d'un compte
+
+    async  AccountStatementGeneration({request}:HttpContextContract) {
+      const accessToken = await this.getToken();
+      const url = `${base}/corporateapi/merchant/statement`;
+      const account = request.input('accountNo')
+      const corporateId = request.input('corporateId')
+      const startDate = request.input('startDate') 
+      const endDate = request.input('endDate')
+      const response = await rp(url, {
+          method: "post",
+          headers: {
+          "Accept": "application/json",
+          "Origin": "developer.ecobank.com",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+          },
+          
+          body: JSON.stringify({
+            "affiliateCode": "EGH",
+            //"corporateId": "OMNI",
+            "corporateId": corporateId,
+            "accountNumber": account,
+            "startDate": startDate,
+            "endDate": endDate,
+            "secureHash":"2683608c9ac7f949fa95b3d361dc2e7e9c7925252c04081d67d73e9b4233ac20db0d2bb72b4e3b7aeda678ce27864c8427818225832e0059b1d29c0aa369929a"
+          }),
+      });
+      return JSON.parse(response)
+  
     }
 
 }
