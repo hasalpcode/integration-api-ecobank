@@ -180,4 +180,31 @@ export default class EcobankQrsController {
   
     }
 
+    // Get biller list // obtenir la liste des facturiers présents dans un affilié
+
+    async  GetBillerList() {
+      //const accessToken = await this.getToken();
+      const url = `${base}/corporateapi/merchant/getbillerlist`;
+      // const account = request.input('accountNo')
+      // const corporateId = request.input('corporateId')
+      // const startDate = request.input('startDate') 
+      // const endDate = request.input('endDate')
+      const response = await rp(url, {
+          method: "post",
+          headers: {
+          "Accept": "application/json",
+          "Origin": "developer.ecobank.com",
+          "Content-Type": "application/json",
+          //Authorization: `Bearer ${accessToken}`,
+          },
+          
+          body: JSON.stringify({
+            "affiliateCode": "EGH",
+            "secureHash":"77f689d330dfe3b0797a53962b549b441777454432f00a94607195d8e56800a4e4d644ca96b443a98bfcf25e91f1bcb1971b09a74473646211033fa7324573a3"
+          }),
+      });
+      return response
+  
+    }
+
 }

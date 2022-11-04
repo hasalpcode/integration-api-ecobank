@@ -50,6 +50,11 @@ Route.group(()=>{
   // obtenir les transactions d'un compte
   Route.post('/account_statement','EcobankQrsController.AccountStatementGeneration')
 
+  // obtenir la liste des facturiers
+  Route.post('/getbillerlist','EcobankQrsController.GetBillerList')
+  // bill payment
+  Route.post('/billpayment','EcobankOtherDealsController.BillPayment')
+
 }).prefix('/api')
   // extension_association
   
