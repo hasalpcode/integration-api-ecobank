@@ -55,6 +55,15 @@ Route.group(()=>{
   // bill payment
   Route.post('/billpayment','EcobankOtherDealsController.BillPayment')
 
+  // bill payment
+  Route.post('/interbankpayment','EcobankOtherDealsController.InterbankPayment')
+
+  // domestic payment
+  Route.post('/domesticpayment','EcobankOtherDealsController.DomesticPayment')
+  // jeton payment
+  Route.post('/jetonpayment','EcobankOtherDealsController.JetonPayment')
+  // momo payment
+  Route.post('/momopayment','EcobankOtherDealsController.MomoPayment')
 }).prefix('/api')
   // extension_association
   
