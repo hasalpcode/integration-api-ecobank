@@ -32,7 +32,34 @@ export default class EcobankOtherDealsController {
       
       return (JSON.parse(result).token)
     }
+    // get biller list
 
+    async  GetBillerList({request}:HttpContextContract) {
+      //const accessToken = await this.getToken();
+      const url = `${base}/corporateapi/merchant/getbillerlist`;
+      const affiliateCode = request.input('affiliateCode')
+      
+
+      const response = await rp(url, {
+        method: "post",
+        headers: {
+          "Accept": "application/json",
+          "Origin": "developer.ecobank.com",
+          "Content-Type": "application/json",
+          //Authorization: `Bearer ${accessToken}`,
+        }, 
+       
+        body: JSON.stringify({
+          "requestId": "ECO2112134345",
+          "affiliateCode": affiliateCode,
+          "secureHash": "77f689d330dfe3b0797a53962b549b441777454432f00a94607195d8e56800a4e4d644ca96b443a98bfcf25e91f1bcb1971b09a74473646211033fa7324573a3"
+      
+        }),
+      });
+      console.log(affiliateCode)
+      return response
+    
+  }
     // bills payment
     async  BillPayment({request}:HttpContextContract) {
         //const accessToken = await this.getToken();
@@ -62,8 +89,8 @@ export default class EcobankOtherDealsController {
             "paymentHeader": {
                 "clientid": "EGHTelc000043",
                 "batchsequence": "1",
-                "batchamount": 270,
-                "transactionamount": 270,
+                "batchamount": billerAmount,
+                "transactionamount": billerAmount,
                 "batchid": "EG1593490",
                 "transactioncount": 4,
                 "batchcount": 4,

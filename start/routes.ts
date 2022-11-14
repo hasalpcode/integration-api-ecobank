@@ -51,7 +51,7 @@ Route.group(()=>{
   Route.post('/account_statement','EcobankQrsController.AccountStatementGeneration')
 
   // obtenir la liste des facturiers
-  Route.post('/getbillerlist','EcobankQrsController.GetBillerList')
+  Route.post('/getbillerlist','EcobankOtherDealsController.GetBillerList')
   // bill payment
   Route.post('/billpayment','EcobankOtherDealsController.BillPayment')
 

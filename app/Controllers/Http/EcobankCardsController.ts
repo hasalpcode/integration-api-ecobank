@@ -43,7 +43,7 @@ export default class EcobankCardsController {
         // const productCode = request.input('productCode')
         // const locale = request.input('locale')
         // const orderInfo = request.input('orderInfo')
-        const requestId = request.input('requestId')
+        // const requestId = request.input('requestId')
         const response = await rp(url, {
           method: "post",
           headers: {
@@ -54,7 +54,7 @@ export default class EcobankCardsController {
           },
           body: JSON.stringify({
             paymentDetails: {
-              requestId: 44,
+              requestId: 44, 
               "productCode":"GMT112",
               amount: amount,
               currency: currency,
