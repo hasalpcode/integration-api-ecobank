@@ -134,9 +134,9 @@ export default class EcobankQrsController {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
           },
-          
+        
           body: JSON.stringify({
-            "requestId": "14232436312",
+            "requestId": "14232436312", 
             "affiliateCode": "EGH",
             "accountNo": account,
             "clientId": id_client,
@@ -145,8 +145,6 @@ export default class EcobankQrsController {
           }),
       });
       return JSON.parse(response)
-  
+
     }
-
-
 }

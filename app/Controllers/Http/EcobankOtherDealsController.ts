@@ -48,7 +48,7 @@ export default class EcobankOtherDealsController {
           "Content-Type": "application/json",
           //Authorization: `Bearer ${accessToken}`,
         }, 
-       
+      
         body: JSON.stringify({
           "requestId": "ECO2112134345",
           "affiliateCode": affiliateCode,
@@ -57,7 +57,7 @@ export default class EcobankOtherDealsController {
         }),
       });
       console.log(affiliateCode)
-      return response
+      return JSON.parse(response)
     
   }
     // bills payment
@@ -113,11 +113,10 @@ export default class EcobankOtherDealsController {
                 }
             ],
             "secureHash":"7f137705f4caa39dd691e771403430dd23d27aa53cefcb97217927312e77847bca6b8764f487ce5d1f6520fd7227e4d4c470c5d1e7455822c8ee95b10a0e9855"
-
             }),
         });
         console.log(lastname)
-        return JSON.parse(response)
+        return response
        
     }
     // interbank payment

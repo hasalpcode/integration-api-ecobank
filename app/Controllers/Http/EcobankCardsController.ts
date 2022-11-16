@@ -51,7 +51,7 @@ export default class EcobankCardsController {
             "Origin": "developer.ecobank.com",
             "Content-Type": "application/json",
             Authorization: `Bearer ${accessToken}`,
-          },
+          }, 
           body: JSON.stringify({
             paymentDetails: {
               requestId: 44, 
